@@ -1,4 +1,3 @@
-import math
 # 牛客10道练习题
 # https://blog.csdn.net/meiribaofu/article/details/116710453
 
