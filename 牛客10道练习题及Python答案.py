@@ -1,8 +1,8 @@
 # 牛客10道练习题
 # https://blog.csdn.net/meiribaofu/article/details/116710453
 
-'''
-1、求解连续数列
+"""
+1、求解连续数列    数组
 已知连续正整数数列{K}=K1，K2，K3...Ki的各个数之和为S，i=N(0<S<100000，0<N<100000)，求此数列K。
 输入描述：
 输入包含两个参数，1）连续正整数数列和S，2）数列里数的个数N。
@@ -21,8 +21,9 @@
 3 5
 输出
 -1
-'''
-def qiuhe(S, n):
+"""
+
+def one(S, n):
     ans = [0] * n
     middle = int(S / n + 0.5) if n % 2 == 0 else int(S / n)
     start = middle - (n // 2)
@@ -34,12 +35,12 @@ def qiuhe(S, n):
     return ans
 
 
-print(qiuhe(525, 5))
-print(qiuhe(525, 6))
-print(qiuhe(3, 3))
+print(one(525, 5))
+print(one(525, 6))
+print(one(3, 3))
 
 '''
-2、查找众数及中位数
+2、查找众数及中位数    数组
 众数是指一组数据中出现次数量多的那个数，众数可以是多个
 中位数是指把一组数据从小到大排列，最中间的那个数，如果这组数据的个数是奇数，那最中间那个就是中位数，如果这组数据的个数为偶数，那就把中间的两个数之和除以2，所得的结果就是中位数
 查找整型数组中元素的众数并组成一个新的数组，求新数组的中位数
@@ -69,7 +70,9 @@ print(qiuhe(3, 3))
 输出
 7
 '''
-def f(L):
+
+
+def two(L):
     ans = []
     n = 1
     for i in L:
@@ -81,18 +84,18 @@ def f(L):
             if i not in ans:
                 ans.append(i)
     ans.sort()
-    if len(ans)%2 == 1:
-        return int(ans[int((len(ans)-1)/2)])
+    if len(ans) % 2 == 1:
+        return int(ans[int((len(ans) - 1) / 2)])
     else:
-        return int((ans[int(len(ans)/2)] + ans[int(len(ans)/2-1)])/2)
+        return int((ans[int(len(ans) / 2)] + ans[int(len(ans) / 2 - 1)]) / 2)
 
 
-print(f([10,11,21,19,21,17,21,16,21,18,15]))
-print(f([2,1,5,4,3,3,9,2,7,4,6,2,15,4,2,4]))
-print(f([5,1,5,3,5,2,5,5,7,6,7,3,7,11,7,55,7,9,98,9,17,9,15,9,9,1,39]))
+print(two([10, 11, 21, 19, 21, 17, 21, 16, 21, 18, 15]))
+print(two([2, 1, 5, 4, 3, 3, 9, 2, 7, 4, 6, 2, 15, 4, 2, 4]))
+print(two([5, 1, 5, 3, 5, 2, 5, 5, 7, 6, 7, 3, 7, 11, 7, 55, 7, 9, 98, 9, 17, 9, 15, 9, 9, 1, 39]))
 
 '''
-3、寻找相同子串
+3、寻找相同子串    字符串
 给你两个字符串 t 和 p ，要求从 t 中找到一个和 p 相同的连续子串，并输出该字串第一个字符的下标。
 
 输入描述:
@@ -108,6 +111,8 @@ RDXI
 输出
 4
 '''
+
+
 def three(t, p):
     if t.count(p) > 0:
         return t.index(p) + 1
@@ -118,9 +123,8 @@ def three(t, p):
 print(three('AVERDXIVYERDIAN', 'RDXI'))
 print(three('AVERDXIVYERDIAN', 'RDdI'))
 
-
 '''
-4、字符串统计
+4、字符串统计    字符串
 给定两个字符集合，一个为全量字符集，一个为已占用字符集。已占用的字符集中的字符不能再使用，要求输出剩余可用字符集。
 
 输入描述:
@@ -147,6 +151,8 @@ a:2,b:3,c:2
 由于已占用字符不能再使用，因此，剩余可用字符为2个a，3个b，2个c。
 因此输出a:2,b:3,c:2
 '''
+
+
 def four(s):
     l = s.split('@')
     l1 = l[0].split(',')
@@ -169,11 +175,10 @@ def four(s):
 
 print(four('a:3,b:5,c:2@a:1,b:2'))
 
-
 '''
-5、磁盘容量排序
+5、磁盘容量排序    排序
 磁盘的容量单位常用的有M，G，T这三个等级，它们之间的换算关系为1T = 1024G，1G = 1024M，现在给定n块磁盘的容量，请对它们按从小到大的顺序进行稳定排序，例如给定5块盘的容量，1T，20M，3G，10G6T，3M12G9M排序后的结果为20M，3G，3M12G9M，1T，10G6T。注意单位可以重复出现，上述3M12G9M表示的容量即为3M+12G+9M，和12M12G相等。
- 
+
 输入描述:
 输入第一行包含一个整数n(2 <= n <= 100)，表示磁盘的个数，接下的n行，每行一个字符串(长度大于2，小于30)，表示磁盘的容量，由一个或多个格式为mv的子串组成，其中m表示容量大小，v表示容量单位，例如20M，1T，30G，10G6T，3M12G9M。
 磁盘容量m的范围为1到1024的正整数，容量单位v的范围只包含题目中提到的M，G，T三种，换算关系如题目描述。
@@ -211,6 +216,7 @@ print(four('a:3,b:5,c:2@a:1,b:2'))
 '''
 import re
 
+
 def five(n, s):
     S = s.split()
     res = []
@@ -224,9 +230,9 @@ def five(n, s):
             if a[-1] == "M":
                 size += int(a[:-1])
             elif a[-1] == "G":
-                size += int(a[:-1])*1024
+                size += int(a[:-1]) * 1024
             elif a[-1] == "T":
-                size += int(a[:-1])*1024*1024
+                size += int(a[:-1]) * 1024 * 1024
             else:
                 size += int(a)
         res.append((i, size))
@@ -243,9 +249,8 @@ def five(n, s):
 print(five(3, '1G 2G 1024M'))
 print(five(3, '2G4M 3M2G 1T'))
 
-
 '''
-6、太阳能板最大面积
+6、太阳能板最大面积    分治
 给航天器一侧加装长方形或正方形的太阳能板（图中的红色斜线区域），需要先安装两个支柱（图中的黑色竖条），再在支柱的中间部分固定太阳能板。但航天器不同位置的支柱长度不同，太阳能板的安装面积受限于最短一侧的那根支柱长度。如图：
 现提供一组整形数组的支柱高度数据，假设每根支柱间距离相等为1个单位长度，计算如何选择两根支柱可以使太阳能板的面积最大。
 
@@ -265,6 +270,8 @@ print(five(3, '2G4M 3M2G 1T'))
 备注:
 10米高支柱和5米高支柱之间宽度为5，高度取小的支柱高也是5，面积为25。任取其他两根支柱所能获得的面积都小于25。所以最大的太阳能板面积为25。
 '''
+
+
 def six(n):
     nums = list(map(int, n.split(",")))
     max_area = 0
@@ -278,9 +285,8 @@ def six(n):
 
 print(six('10,9,8,7,6,5,4,3,2,1'))
 
-
 '''
-7、靠谱的车
+7、靠谱的车    进制转换
 程序员小明打了一辆出租车去上班。出于职业敏感，他注意到这辆出租车的计费表有点问题，总是偏大。
 出租车司机解释说他不喜欢数字4，所以改装了计费表，任何数字位置遇到数字4就直接跳过，其余功能都正常。
 
@@ -324,6 +330,8 @@ print(six('10,9,8,7,6,5,4,3,2,1'))
 100表示计费表的表面读数。
 81表示实际产生的费用其实只有81块钱。
 '''
+
+
 def seven(n):
     chajia = 0
     for i in range(n):
@@ -336,7 +344,6 @@ def seven(n):
 print(seven(5))
 print(seven(17))
 print(seven(100))
-
 
 '''
 8、整数对最小和
@@ -351,7 +358,7 @@ print(seven(100))
 0 < k <= array1.size() * array2.size()
 输出描述:
 满足要求的最小和
- 
+
 示例1
 输入
 3 1 1 2
@@ -366,13 +373,15 @@ print(seven(100))
 取第一个数组第1个元素与第二个数组第0个元素组成1对元素[1,1];
 求和为1+1+1+1=4，为满足要求的最小和
 '''
+
+
 def eight(arr1, arr2, k):
     arr1 = list(map(int, arr1.split()))
     arr2 = list(map(int, arr2.split()))
     list1 = []
     for i in range(len(arr1)):
         for j in range(len(arr2)):
-            list1.append(arr1[i]+arr2[j])
+            list1.append(arr1[i] + arr2[j])
     ans = 0
     list1.sort()
     for i in range(k):
@@ -407,6 +416,8 @@ abcaybec
 备注:
 若在source中找不到target，则输出-1
 '''
+
+
 def nine(target, source):
     i = len(target) - 1
     j = len(source) - 1
@@ -427,7 +438,6 @@ def nine(target, source):
 
 
 print(nine('abc', 'abcaybec'))
-
 
 '''
 10、按身高和体重排队
@@ -457,14 +467,16 @@ print(nine('abc', 'abcaybec'))
 说明
 1和3的身高体重都相同，需要按照原有位置关系让1排在3前面，而不是3 1 2
 '''
+
+
 def ten(n, height, weight):
     h = list(map(int, height.split()))
     w = list(map(int, weight.split()))
     n = int(n)
     res = []
     ans = []
-    for i in range(1, n+1):
-        res.append((i, h[i-1], w[i-1]))
+    for i in range(1, n + 1):
+        res.append((i, h[i - 1], w[i - 1]))
 
     # def paixu(x):
     #     return x[1], x[2]
