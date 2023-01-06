@@ -119,7 +119,7 @@ def uniquePaths(m: int, n: int) -> int:
 
 
 '''
-3. 无重复字符的最长子串
+3. 无重复字符的最长子串  哈希/字符串
 给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。
 
 示例 1:
@@ -140,7 +140,7 @@ def uniquePaths(m: int, n: int) -> int:
 
 def lengthOfLongestSubstring(s: str) -> int:  # 注意类的self
     cur = []
-    rk, ans = 0, 0
+    ans = 0
     for i in range(len(s)):
         while s[i] in cur:
             cur.pop(0)
@@ -236,3 +236,16 @@ def movingCount(m: int, n: int, k: int) -> int:
 解释：这个示例中，字符串 "bcbcbc" 本身就是最长的，因为所有的元音 a，e，i，o，u 都出现了 0 次。
 '''
 
+
+def findTheLongestSubstring(s: str) -> int:
+    dict = {"a": 1, "e": 2, "i": 4, "o": 8, "u": 16}  # 这个提前打好，避免主循环里冗长的if-else
+    seen = {0: -1}  # 一定要预先加入0状态，否则会漏掉从s[0]开始的子串
+    cur, ans = 0, 0
+    for idx, word in enumerate(s):
+        if word in dict:
+            cur ^= dict[word]  # 用异或操作来给当前字母对应的位取反
+        if cur in seen:  # 见过的状态，更新答案即可，不要画蛇添足用j把seen[cur]顶掉，我们要的是最长子串
+            ans = max(ans, idx - seen[cur])
+        else:  # 没见过的状态放入哈希表
+            seen[cur] = idx
+    return ans
