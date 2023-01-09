@@ -189,8 +189,14 @@ class Solution:
 输出：[6]
 '''
 
-
-
+class Solution:
+    def minSubsequence(self, nums: List[int]) -> List[int]:
+        nums.sort(reverse = True)
+        total, s = sum(nums), 0
+        for i, num in enumerate(nums):
+            s += num
+            if s > total - s:
+                return nums[:i + 1]
 
 
 '''
@@ -208,3 +214,12 @@ class Solution:
 输出："abc"
 解释：重新排列后，每个字符都还留在原来的位置上。
 '''
+
+
+class Solution:
+    def restoreString(self, s: str, indices: List[int]) -> str:
+        ans = [''] * len(s)
+        for i, num in enumerate(indices):
+            ans[num] = s[i]
+
+        return ''.join(ans)
