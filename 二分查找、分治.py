@@ -160,3 +160,91 @@ class Solution:
 
  # [3,3,7,7,10,11,11]
  #  0 1 2 3 4  5  6
+
+'''
+241. 为运算表达式设计优先级
+给你一个由数字和运算符组成的字符串 expression ，按不同优先级组合数字和运算符，计算并返回所有可能组合的结果。你可以 按任意顺序 返回答案。
+生成的测试用例满足其对应输出值符合 32 位整数范围，不同结果的数量不超过 104 。
+
+示例 1：
+输入：expression = "2-1-1"
+输出：[0,2]
+解释：
+((2-1)-1) = 0 
+(2-(1-1)) = 2
+示例 2：
+输入：expression = "2*3-4*5"
+输出：[-34,-14,-10,-10,10]
+解释：
+(2*(3-(4*5))) = -34 
+((2*3)-(4*5)) = -14 
+((2*(3-4))*5) = -10 
+(2*((3-4)*5)) = -10 
+(((2*3)-4)*5) = 10
+'''
+
+class Solution:
+    def diffWaysToCompute(self, input: str) -> List[int]:
+        if input.isdigit():
+            return [int(input)]
+        ans = []
+        for i, ch in enumerate(input):
+            if ch in ['+', '-', '*']:
+                left = self.diffWaysToCompute(input[:i])
+                right = self.diffWaysToCompute(input[i + 1:])
+                for l in left:
+                    for r in right:
+                        if ch == '+':
+                            ans.append(l + r)
+                        elif ch == '-':
+                            ans.append(l - r)
+                        else:
+                            ans.append(l * r)
+        return ans
+
+
+'''
+95. 不同的二叉搜索树 II
+给你一个整数 n ，请你生成并返回所有由 n 个节点组成且节点值从 1 到 n 互不相同的不同 二叉搜索树 。可以按 任意顺序 返回答案。
+
+示例 1：
+
+输入：n = 3
+输出：[[1,null,2,null,3],[1,null,3,2],[2,1,3],[3,1,null,null,2],[3,2,null,1]]
+示例 2：
+输入：n = 1
+输出：[[1]]
+'''
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def generateTrees(self, n: int) -> List[TreeNode]:
+        def generateTrees(start, end):
+            if start > end:
+                return [None, ]
+
+            allTrees = []
+            for i in range(start, end + 1):  # 枚举可行根节点
+                # 获得所有可行的左子树集合
+                leftTrees = generateTrees(start, i - 1)
+
+                # 获得所有可行的右子树集合
+                rightTrees = generateTrees(i + 1, end)
+
+                # 从左子树集合中选出一棵左子树，从右子树集合中选出一棵右子树，拼接到根节点上
+                for l in leftTrees:
+                    for r in rightTrees:
+                        currTree = TreeNode(i)
+                        currTree.left = l
+                        currTree.right = r
+                        allTrees.append(currTree)
+
+            return allTrees
+
+        return generateTrees(1, n) if n else []
